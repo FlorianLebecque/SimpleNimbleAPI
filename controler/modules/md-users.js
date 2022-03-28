@@ -52,6 +52,28 @@ const users = {
         }
 
         return user_info
+    },
+
+    async Login(log_form){
+        let result;
+
+        await User.findOne({where:{email:log_form.email}}).then(data =>{
+
+            result = data;
+
+        }).catch(err=>{
+            throw err;
+        })
+
+        if(result == null)  //  the email address don't exist
+            return false;
+
+
+        if(log_form.password == result.dataValues.password){
+            return result.dataValues.id;
+        }
+
+        return false;
     }
 
 };
