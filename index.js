@@ -20,7 +20,7 @@ fs.readdir("./controler/modules",(err,files)=>{
 
         let md = require("./controler/modules/"+file);
 
-        Object.assign(Controler,md);
+        Object.assign(Controler.prototype,md);
     });
 })
 
