@@ -5,6 +5,11 @@ class Controler{
         return str;
     }
 
+    CheckObj(obj,key_array){
+        return Object.keys(obj).every(function(val) { return key_array.indexOf(val) >= 0; })
+    }
+
+
 }
 
 
