@@ -3,6 +3,10 @@ const app = Express();
 
 app.use(Express.json());
 
+const db = require("./db");
+
+db.sync();
+
 const Controler = require("./controler/controler");
 
 const fs = require("fs");
