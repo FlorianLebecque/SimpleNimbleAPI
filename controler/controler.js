@@ -1,6 +1,10 @@
 
 class Controler{
 
+    Sanatize(str){
+        return str;
+    }
+
 }
 
 
