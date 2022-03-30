@@ -11,29 +11,22 @@ const User = db.define("user",{
     name:{
         type: Sequelize.STRING,
         allowNull : false,
+        unique:true
     },
     password:{
         type: Sequelize.STRING,
         allowNull: false
     },
-    email:{
+    token:{
         type: Sequelize.STRING,
-        allowNull: false,
-        unique:true
+        allowNull: true
     },
-    ppPath:{
-        type: Sequelize.STRING,
+    connection:{
+        type: Sequelize.DATE,
         allowNull: true
     }
 });
 
-
-let dummy = User.build({
-    id:"0",
-    name:"dummy",
-    password:"123",
-    email:"dummy@dmy.com",
-})
 
 db.sync();
 

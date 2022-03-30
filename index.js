@@ -7,26 +7,13 @@ const db = require("./db");
 
 db.sync();
 
-const Controler = require("./controler/controler");
+const ctrl = require("./controler/Controler");
 
+
+
+
+//load router
 const fs = require("fs");
-
-fs.readdir("./controler/modules",(err,files)=>{
-    if(err)
-        throw err;
-    
-    files.forEach(file => {
-        console.log("Loaded controler module :",file);
-
-        let md = require("./controler/modules/"+file);
-
-        Object.assign(Controler.prototype,md);
-    });
-})
-
-global.ctrl = new Controler();
-
-
 fs.readdir("./routers",(err,files)=>{
     if(err)
         throw err;
@@ -38,8 +25,6 @@ fs.readdir("./routers",(err,files)=>{
         app.use("/"+rt.path,rt.router);
     });
 })
-// Load router
-
 
 
 app.listen(3000,()=>{
