@@ -32,15 +32,31 @@ const users = {
             throw {code:500,err:"Internal server error"};
         });
 
-        let user_info = {
-            id:data.id,
-            name:data.name
-        };
+        let token_n = Str.uuid();
 
-        return user_info;
+        let result = await User.update({token:token_n},{where:{id:data.id}}).then(data => {
+            return data;
+        }).catch(err=>{
+            throw {code:500,err:"Internal server error"};
+        });
+
+        if(result){
+            let user_info = {
+                id:data.id,
+                name:data.name,
+                token:token_n
+            };
+    
+            return user_info;
+        }else{
+            throw {code:500,err:"Internal server error"};
+        }
+        
     },
 
     async Login(log_form){
+
+        console.log(log_form)
 
         try {
             if(!this.CheckObj(log_form,["name","password"])){
@@ -69,7 +85,13 @@ const users = {
                 });
 
                 if(result){
-                    return token_n;
+
+                    let user_info = {
+                        id:user.id,
+                        name:user.name,
+                        token:token_n
+                    };
+                    return user_info;
                 }
                 
             }
