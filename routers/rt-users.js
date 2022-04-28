@@ -4,9 +4,21 @@ const userRouter = Express.Router();
 const ctrl = require("../controler/Controler");
 
 userRouter.get("/",(req,res)=>{
-    res.json("hello");
+    //return a list of all user
+
+
+
 })
 
+userRouter.get("/:search",(req,res)=>{
+    //return a list of all user
+
+    if(req.params.search){
+
+    }else
+    
+
+})
 
 userRouter.post("/register",async (req,res) => {
 
