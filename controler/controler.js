@@ -1,3 +1,9 @@
+const User = require("../models/user");
+const Str = require("@supercharge/strings");
+
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+
 
 class Controler{
 
@@ -15,6 +21,23 @@ class Controler{
 
     CheckObj(obj,key_array){
         return key_array.every(function(val) { return Object.keys(obj).indexOf(val) >= 0; })
+    }
+
+    async CheckToken(username,cur_token){
+
+
+        let users = await User.findOne({attributes:["id"],where:{[Op.and]:[{name:username},{token:cur_token}]}}).then(data=>{
+            return data;
+        }).catch(err=>{
+            throw {code:500,err:"Internal server error"};
+        })
+
+        if(users){
+            return users;
+        }else{
+            return false;
+        }
+
     }
 
 }
