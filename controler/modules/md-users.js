@@ -126,6 +126,29 @@ const users = {
 
         return users;
 
+    },
+
+    async GetUser(find_form){
+        try {
+            if(!this.CheckObj(find_form,["id"])){
+                throw {code:400,err:"Incomplete forms"};
+            }
+        } catch (error) {
+            throw {code:400,err:"Incomplete forms"};
+        }
+
+
+        let user = await User.findOne({attributes:["id","name","createdAt"],where:{id:find_form.id}}).then(data=>{
+            return data;
+        }).catch(err=>{
+            throw {code:500,err:"Internal server error"};
+        })
+
+        if(user){
+            return user
+        }
+
+        throw {code:404,err:"Not found"};
     }
 
 };
