@@ -128,7 +128,8 @@ userRouter.get("/follow/",async (req,res)=>{
 userRouter.get("/posts/:id",async (req,res) => {
     if(req.params.id){
         let find_form = {
-            id : req.params.id
+            id : req.params.id,
+            date: req.query.date
         };
 
         try {

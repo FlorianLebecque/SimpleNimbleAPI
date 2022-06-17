@@ -48,7 +48,7 @@ const posts = {
 
     async GetUserPost(find_form){
         try {
-            if(!this.CheckObj(find_form,["id"])){
+            if(!this.CheckObj(find_form,["id","date"])){
                 throw {code:400,err:"Incomplete forms"};
             }
         } catch (error) {
@@ -56,7 +56,7 @@ const posts = {
         }
 
 
-        let posts = await Post.findAll({order:[["createdAt","desc"],["title","asc"]],where:{author:find_form.id}}).then(data=>{
+        let posts = await Post.findAll({order:[["createdAt","desc"],["title","asc"]],where:{[Op.and]:[{author:find_form.id},{createdAt:{[Op.gte]:find_form.date}}]}}).then(data=>{
             return data;
         }).catch(err=>{
             throw {code:500,err:"Internal server error"};
